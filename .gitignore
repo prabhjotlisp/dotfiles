@@ -1,1 +1,2 @@
-*~
+.+~          # emacs backup files
+\#.*\#       # emacs autosave files
