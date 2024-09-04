@@ -2,6 +2,7 @@
 (tool-bar-mode 0)
 ;; (scroll-bar-mode 0)
 
+;; theme
 (require 'gruvbox-theme)
 (load-theme 'gruvbox-dark-hard t)
 
