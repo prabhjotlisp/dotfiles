@@ -10,7 +10,7 @@
 (defun my-term ()
   "This fuction opens terminal vertically at bottom"
   (interactive)
-  (split-window-vertically 20)
+  (split-window-vertically 30)
   (other-window 1)
   (term "bash"))
 (keymap-global-unset "M-s")
