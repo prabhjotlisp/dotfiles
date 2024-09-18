@@ -1,2 +1,5 @@
-set global tabstop 2
-colorscheme gruvbox-light
+colorscheme gruvbox-dark
+
+set-option global tabstop 2
+set-option global indentwidth 2
+
