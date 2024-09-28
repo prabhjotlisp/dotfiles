@@ -1,4 +1,5 @@
 colorscheme gruvbox-dark
+addhl global/ number-lines -relative -hlcursor
 
 set-option global tabstop 2
 set-option global indentwidth 2
