@@ -7,6 +7,7 @@ set $up k
 set $right h
 
 # exec emacs
+exec kak -d -s "server" &
 
 default_border pixel 3
 
@@ -110,7 +111,7 @@ set $menu dmenu_path | wmenu | xargs swaymsg exec --
     bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
-    bindsym $mod+c fullscreen
+    bindsym $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
