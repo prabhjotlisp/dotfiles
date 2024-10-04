@@ -1,10 +1,18 @@
+font pango:monospace 9
+
 ### Variables
 set $mod Mod4
 
-set $left l
-set $down j 
-set $up k
-set $right h
+workspace_layout tabbed
+
+smart_borders on
+
+for_window [title="."]  title_format "<b>%app_id%class</b>"
+
+set $left h
+set $down k 
+set $up j
+set $right l
 
 # exec emacs
 exec kak -d -s "server" &
@@ -19,24 +27,25 @@ set $menu dmenu_path | wmenu | xargs swaymsg exec --
 
 ### Output configuration
 #output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+#output HDMI1 scale 1
 
 # Binds
+	
+    bindsym $mod+u workspace prev
+    bindsym $mod+i workspace next
+
     # Start a terminal
-    bindsym $mod+Return exec $term
+    bindsym $mod+Shift+Return exec $term
     
     # Start a web browser
-    bindsym $mod+i exec $web
+    bindsym $mod+Shift+y exec $web
 
     # Kill focused window
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    bindsym $mod+d exec $menu
+    bindsym $mod+Shift+d exec $menu
 
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
     # mouse button for dragging.
     floating_modifier $mod normal
 
@@ -44,7 +53,7 @@ set $menu dmenu_path | wmenu | xargs swaymsg exec --
     bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exit
+    bindsym $mod+Shift+z exit
 #
 # Moving around:
 #
@@ -164,18 +173,19 @@ mode "resize" {
 # Read `man 5 sway-bar` for more information about this section.
 
 bar {
-   position top
+	position bottom
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    #status_command while date +'%Y-%m-%d %X'; do sleep 1; done
-    status_command ~/.config/sway/bar.sh
+	mode hide
 
-   colors {
-       statusline #ffffff
-       background #323232
-       inactive_workspace #32323200 #32323200 #5c5c5c
-   }
+	status_command ~/.config/sway/bar.sh
+
+  font pango:monospace 15
+
+	colors {
+    statusline #ffffff
+    background #000000
+    inactive_workspace #000000 #000000 #ffffff
+  }
 }
 
 include /etc/sway/config.d/*

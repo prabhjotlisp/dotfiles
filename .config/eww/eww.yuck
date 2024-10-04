@@ -1,0 +1,52 @@
+(defwindow bar
+  :monitor 0
+  :stacking "fg"
+  :geometry (geometry 
+							:x "0px"
+              :y "0px"
+              :width  "215px"
+              :height "0px"
+              :anchor "top right"
+						)
+	(bar)
+)
+
+(defpoll time :interval "5s" `date +'%I:%M %p'`)
+(defpoll date :interval "1000s" `date +%D`)
+(defpoll bat :interval "1s" `cat /sys/class/power_supply/BAT1/capacity`)
+(defpoll bat-status :interval "1s" `cat /sys/class/power_supply/BAT1/status`)
+
+(defwidget bar []
+	(eventbox
+		:onclick "eww close bar && eww open bar-btn &"
+		(box
+			:halign "end"
+			:space-evenly false
+			:spacing 10
+			(label :text "${bat-status == "Charging" ? "CHR" : "BAT"} ${bat}%")
+			(label :text time)
+			(label :text date)
+			(label :text " ")
+		)
+	)
+)
+
+(defwindow bar-btn
+  :monitor 0
+  :stacking "fg"
+  :geometry (geometry 
+							:x "0px"
+              :y "0px"
+              :width  "20px"
+              :height "0px"
+              :anchor "top right"
+						)
+	(bar-btn)
+)
+
+(defwidget bar-btn []
+	(button
+		:onclick "eww close bar-btn && eww open bar &"
+		"&"
+	)
+)
