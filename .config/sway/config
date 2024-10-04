@@ -1,29 +1,24 @@
+# font
 font pango:monospace 9
+
 
 ### Variables
 set $mod Mod4
 
-workspace_layout tabbed
-
-smart_borders on
-
-for_window [title="."]  title_format "<b>%app_id%class</b>"
+set $term alacritty
+set $web chromium
+set $menu dmenu_path | wmenu | xargs swaymsg exec --
 
 set $left h
 set $down k 
 set $up j
 set $right l
 
+### Execs
 # exec emacs
 exec kak -d -s "server" &
-
-default_border pixel 3
-
-set $term alacritty
-
-set $web chromium
-
-set $menu dmenu_path | wmenu | xargs swaymsg exec --
+exec eww open bar &
+# exec_always eww open bar &
 
 ### Output configuration
 #output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
@@ -31,11 +26,11 @@ set $menu dmenu_path | wmenu | xargs swaymsg exec --
 
 # Binds
 	
-    bindsym $mod+u workspace prev
-    bindsym $mod+i workspace next
-
     # Start a terminal
     bindsym $mod+Shift+Return exec $term
+
+		# eww bar
+    bindsym $mod+Shift+p exec bash ~/.config/sway/eww-bar.sh
     
     # Start a web browser
     bindsym $mod+Shift+y exec $web
@@ -81,6 +76,11 @@ set $menu dmenu_path | wmenu | xargs swaymsg exec --
 #
 # Workspaces:
 #
+
+		# next and prev workspace
+    bindsym $mod+u workspace prev
+    bindsym $mod+i workspace next
+
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
@@ -108,16 +108,22 @@ set $menu dmenu_path | wmenu | xargs swaymsg exec --
 #
 # Layout stuff:
 #
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
 
-    # Switch the current container between different layout styles
+		# layout
+    workspace_layout tabbed
+
+		# border width
+    default_border pixel 3
+
+		# smart borders
+    smart_borders on
+
+		# window title
+    for_window [title="."]  title_format "<b>%app_id%class</b>"
+
     # bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+    bindsym $mod+Shift+w layout tabbed
+    bindsym $mod+Shift+e layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
@@ -128,14 +134,9 @@ set $menu dmenu_path | wmenu | xargs swaymsg exec --
     # Swap focus between the tiling area and the floating area
     bindsym $mod+space focus mode_toggle
 
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
 #
 # Scratchpad:
 #
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-
     # Move the currently focused window to the scratchpad
     bindsym $mod+Shift+minus move scratchpad
 
@@ -145,11 +146,10 @@ set $menu dmenu_path | wmenu | xargs swaymsg exec --
 #
 # Resizing containers:
 #
+
+bindsym $mod+Shift+r mode "resize"
+
 mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
     bindsym $left resize shrink width 10px
     bindsym $down resize grow height 10px
     bindsym $up resize shrink height 10px
@@ -172,20 +172,20 @@ mode "resize" {
 #
 # Read `man 5 sway-bar` for more information about this section.
 
-bar {
-	position bottom
+#bar {
+#	position bottom
 
-	mode hide
+#	mode hide
 
-	status_command ~/.config/sway/bar.sh
+#	status_command ~/.config/sway/bar.sh
 
-  font pango:monospace 15
+# font pango:monospace 15
 
-	colors {
-    statusline #ffffff
-    background #000000
-    inactive_workspace #000000 #000000 #ffffff
-  }
-}
+#	colors {
+#    statusline #ffffff
+#    background #000000
+#    inactive_workspace #000000 #000000 #ffffff
+#   }
+# }
 
 include /etc/sway/config.d/*

@@ -16,9 +16,11 @@
 (defpoll bat :interval "1s" `cat /sys/class/power_supply/BAT1/capacity`)
 (defpoll bat-status :interval "1s" `cat /sys/class/power_supply/BAT1/status`)
 
+(defvar bar-show true)
+
 (defwidget bar []
 	(eventbox
-		:onclick "eww close bar && eww open bar-btn &"
+		:onclick "eww close bar && eww open bar-btn && eww update bar-show=false &"
 		(box
 			:halign "end"
 			:space-evenly false
@@ -46,7 +48,7 @@
 
 (defwidget bar-btn []
 	(button
-		:onclick "eww close bar-btn && eww open bar &"
+		:onclick "eww close bar-btn && eww open bar && eww update bar-show=true &"
 		"&"
 	)
 )
