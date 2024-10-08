@@ -5,7 +5,8 @@ font pango:monospace 9
 set $mod Mod4
 
 set $term alacritty
-set $web chromium
+#set $web chromium
+set $web firefox
 set $menu dmenu_path | wmenu | xargs swaymsg exec --
 
 set $left h
