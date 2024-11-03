@@ -48,7 +48,7 @@
 
 (deflayer move
 	_
-	_ _ _ _
+	@a @s @d @f 
 	0 1 2 3 4
 	5 6 7 8 9
 	_ bspc
