@@ -1,9 +1,3 @@
-;; (defcfg
-;;	input (device-file "/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-kbd") 
-;;	output (uinput-sink "hello" "") 
-;;	fallthrough true
-;; )
-
 (defcfg
 	process-unmapped-keys yes
 )
@@ -14,8 +8,9 @@
 )
 
 (defalias
-	arr (layer-toggle move)
-	caps (tap-hold $tap-time $hold-time esc @arr)
+	num (layer-toggle numly)
+	lalt (tap-hold $tap-time $hold-time lalt @num)
+	;; caps (tap-hold $tap-time $hold-time esc @num)
 
 	a (tap-hold $tap-time $hold-time a lctl) 
 	s (tap-hold $tap-time $hold-time s lalt)
@@ -29,27 +24,31 @@
 )
 
 (defsrc 
-	caps
+	caps lalt
 	a s d f
 	y u i o p
 	h j k l ;
 	n m
 )
 
+;;  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+;;  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+;;  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+;;  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+;;  lctl lmet lalt           spc            ralt rmet rctl
+
 (deflayer default
-	@caps 
+	esc @lalt 
 	@a @s @d @f 
 	_ _ _ _ _
 	_ @j @k @l @; 
 	_ _
 )
 
-;; lctl lmet lalt           spc            ralt rmet rctl 
-
-(deflayer move
-	_
+(deflayer numly
+	_ _
 	@a @s @d @f 
 	0 1 2 3 4
 	5 6 7 8 9
-	_ bspc
+	ret bspc
 )
