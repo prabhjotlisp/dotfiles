@@ -16,9 +16,13 @@ set $right l
 
 ### Execs
 # exec emacs
-exec kak -d -s "server" &
+# exec kak -d -s "server" &
 exec eww open bar &
 # exec_always eww open bar &
+
+input "type:touchpad" {
+      tap enabled
+}
 
 ### Output configuration
 #output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
@@ -26,11 +30,16 @@ exec eww open bar &
 
 # Binds
 	
+    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 10-
+    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 10+
+
     # Start a terminal
     bindsym $mod+Shift+Return exec $term
 
-		# eww bar
+    # eww bar
     bindsym $mod+Shift+p exec bash ~/.config/sway/eww-bar.sh
+    
+    bindsym $mod+Shift+t exec emacs
     
     # Start a web browser
     bindsym $mod+Shift+y exec $web

@@ -1,0 +1,144 @@
+(menu-bar-mode 0)
+(tool-bar-mode 0)
+(scroll-bar-mode 0)
+;; (menu-bar--display-line-numbers-mode-relative)
+(display-time-mode t)
+(display-battery-mode t)
+
+;; theme
+(require 'gruvbox-theme)
+(load-theme 'gruvbox-dark-hard t)
+
+(defun efs/exwm-update-class ()
+  (exwm-workspace-rename-buffer exwm-class-name))
+
+(use-package exwm
+  :config
+  ;; Set the default number of workspaces
+  (setq exwm-workspace-number 5)
+
+  ;; When window "class" updates, use it to set the buffer name
+  (add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
+
+  ;; These keys should always pass through to Emacs
+  (setq exwm-input-prefix-keys
+    '(?\C-x
+      ?\C-u
+      ?\C-h
+      ?\M-x
+      ?\M-`
+      ?\M-&
+      ?\M-:
+      ?\M-g
+      ;; ?\C-\M-j  ;; Buffer list
+      ?\C-\ ))  ;; Ctrl+Space
+
+  ;; Ctrl+Q will enable the next key to be sent directly
+  (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
+
+  ;; Set up global key bindings.  These always work, no matter the input state!
+  ;; Keep in mind that changing this list after EXWM initializes has no effect.
+  (setq exwm-input-global-keys
+        `(
+          ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
+          ([?\s-r] . exwm-reset)
+
+          ;; Move between windows
+          ([?\s-h] . windmove-left)
+          ([?\s-l] . windmove-right)
+          ([?\s-k] . windmove-up)
+          ([?\s-j] . windmove-down)
+
+          ;; ([?\s-i] . (start-process-shell-command 'st nil "st"))
+	  
+	  ;; ([?\s-p] . (start-process-shell-command 'eww nil "bash ~/.config/sway/eww-bar.sh"))
+
+          ;; Launch applications via shell command
+          ([?\s-f] . (lambda (command)
+                       (interactive (list (read-shell-command "$ ")))
+                       (start-process-shell-command command nil command)))
+
+          ;; Switch workspacep
+          ([?\s-w] . exwm-workspace-switch)
+
+          ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
+          ,@(mapcar (lambda (i)
+                      `(,(kbd (format "s-%d" i)) .
+                        (lambda ()
+                          (interactive)
+                          (exwm-workspace-switch-create ,i))))
+                    (number-sequence 0 9))))
+
+  (exwm-enable))
+
+
+;; my term
+;; (defun my-term ()
+;;   "This fuction opens terminal vertically at bottom"
+;;   (interactive)
+;;   (split-window-vertically 30)
+;;   (other-window 1)
+;;   (term "bash"))
+;; (keymap-global-unset "M-s")
+;; (keymap-global-set "M-s" 'my-term)
+
+;; ;; c bind
+;; (defun c-add-if ()
+;;   (interactive)
+;;   (insert "if ()\n")
+;;   (insert "{")
+;;   (c-indent-line-or-region)
+;;   (insert "\n")
+;;   (insert "}")
+;;   (c-indent-line-or-region)
+;;   (insert "\n")
+
+;;   (backward-paragraph)
+;;   (forward-word)
+;;   (forward-char)
+;;   (forward-char))
+;; (keymap-global-unset "C-c")
+;; (keymap-global-set "C-c i" 'c-add-if)
+
+;; ;; selection
+;; ;;(defun my-make-
+
+;; ;; my binds
+;; (keymap-global-set "M-h" 'backward-char)
+;; (keymap-global-set "M-j" 'next-line)
+;; (keymap-global-set "M-k" 'previous-line)
+;; (keymap-global-set "M-l" 'forward-char)
+
+;; (keymap-global-set "M-w" 'forward-word)
+;; (keymap-global-set "M-b" 'backward-word)
+
+;; (keymap-global-set "M-a" 'move-beginning-of-line)
+;; (keymap-global-set "M-e" 'move-end-of-line)
+
+;; ;; (keymap-global-set "M-A" 'move-beginning-of-line)
+;; ;; (keymap-global-set "M-E" 'move-end-of-line)
+
+;; (keymap-global-set "M-y" 'yank)
+
+;; (keymap-global-set "M-/" 'undo)
+
+;; ;; (keymap-global-set "M-g" 'keyboard-quit)
+
+;; (keymap-global-set "M-;" 'comment-line)
+
+;; (keymap-global-set "M-K" 'kill-line)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("b1a691bb67bd8bd85b76998caf2386c9a7b2ac98a116534071364ed6489b695d" "d80952c58cf1b06d936b1392c38230b74ae1a2a6729594770762dc0779ac66b7" "19a2c0b92a6aa1580f1be2deb7b8a8e3a4857b6c6ccf522d00547878837267e7" "72ed8b6bffe0bfa8d097810649fd57d2b598deef47c992920aef8b5d9599eefe" "db86c52e18460fe10e750759b9077333f9414ed456dc94473f9cf188b197bc74" default))
+ '(package-selected-packages '(material-theme exwm gruvbox-theme)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
