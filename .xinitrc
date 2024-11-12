@@ -1,0 +1,2 @@
+exec picom &
+exec emacs
