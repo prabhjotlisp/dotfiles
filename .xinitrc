@@ -1,2 +1,4 @@
+exec sh ~/scripts/dwm-bar.sh &
 exec picom &
-exec emacs
+exec nitrogen --restore &
+exec dwm 
