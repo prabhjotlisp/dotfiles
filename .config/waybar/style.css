@@ -1,0 +1,59 @@
+* {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  font-family: "Hack";
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0;
+}
+
+tooltip {
+  background-color: #1d2021;
+  border: 2px solid #7c6f64;
+}
+
+window#waybar {
+  background-color: #303536;
+  color: white;
+}
+
+#clock,
+#tray,
+#cpu,
+#memory,
+#battery,
+#network,
+#pulseaudio,
+#workspaces button {
+  padding: 4px;
+}
+
+#workspaces button.active {
+  background-color: white;
+  color: black;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#workspaces button.urgent {
+  background-color: #e78a4e;
+}
+
+#battery {
+  background-color: #a9b665;
+  color: black;
+}
+
+#cpu.critical,
+#memory.critical {
+  background-color: #ddc7a1;
+  color: black;
+}
+
+#battery.warning,
+#battery.critical,
+#battery.urgent {
+  background-color: #ddc7a1;
+  color: black;
+}
